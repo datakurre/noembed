@@ -30,20 +30,11 @@ sub prepare_provider {
   my $self = shift;
   $self->{providers} = [];
 
-  my $ua = LWP::UserAgent->new;
-  my $res = $ua->get("http://oembed.com/providers.json");
   my $providers;
-
-  if ($res->code == 200) {
-    $providers = decode_json $res->content;
-  }
-  else {
-    warn "unable to fetch providers.json, loading static";
-    $providers = do {
-      local $/;
-      open my $fh, "<", $self->{share_dir} . "/providers.json" or die $!;
-      decode_json <$fh>;
-    };
+  $providers = do {
+    local $/;
+    open my $fh, "<", $self->{share_dir} . "/providers.json" or die $!;
+    decode_json <$fh>;
   }
 
   my @lookup;

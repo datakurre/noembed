@@ -16,6 +16,7 @@ sub get_ua {
     agent      => "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36",
   );
   $ua->ssl_opts(timeout => 5, Timeout => 5);
+  $ua->env_proxy; # initialize from environment variables
   $ua;
 }
 
